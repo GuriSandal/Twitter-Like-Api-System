@@ -9,7 +9,7 @@ from ..serializers import LikeSerializer
 class CreateDeleteLikeView(generics.CreateAPIView):
     queryset = Like.objects.all()
     serializer_class = LikeSerializer
-    permission_classes = [permissions.IsAuthenticatedOrReadOnly, IsOwnerOrReadOnly]
+    permission_classes = [permissions.IsAuthenticated]
     def perform_create(self, serializer):
         if self.request.data['author'] != str(self.request.user.id):
             raise NotAcceptable("Not authorized.")
